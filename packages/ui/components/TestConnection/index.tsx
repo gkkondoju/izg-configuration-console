@@ -5,12 +5,14 @@ import Close from "../Close";
 import { Container } from "@mui/material";
 import TestsList from "./testsList";
 import { useRouter } from "next/router";
-import { useQuery } from "@apollo/client";
-import { DESTINATION_INFO } from "../../lib/queries/history/connectionhistory";
 
 const TestConnection = () => {
-  const [testResults, setTestResults] = useState([]);
+
   const [isLoading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [tests, setTests] = useState([]);
+  const [jurisdiction, setJurisdiction] = useState('');
+  const [type, setType] = useState('');
   const router = useRouter();
   const { id } = router.query;
   const TEST_API_DOMAIN =
@@ -19,26 +21,27 @@ const TestConnection = () => {
   useEffect(() => {
     setLoading(true);
     fetch(`${TEST_API_DOMAIN}/api/tests/connectiontest/${id}`)
-      .then((res) => res.json())
-      .then((testResults) => {
-        setTestResults(testResults.testResults);
+      .then(res => { 
+        console.log(res)
+        if(!res.ok) {
+          throw new Error(res.statusText);
+        } 
+        return res.json();
+      }
+      )
+      .then((data) => {
+        setType(data.destType)
+        setTests(data.testResults);
+        setJurisdiction(data.jurisdictionDescription)
         setLoading(false);
       })
       .catch((err) => {
-        throw new Error(err);
+        setError(err.message)
       });
   }, [id]);
 
-  const {
-    loading,
-    error,
-    data: destInfo,
-  } = useQuery(DESTINATION_INFO, {
-    variables: { destId: id },
-  });
-
-  if (error) {
-    throw new Error(error.message);
+  if(error) {
+    throw new Error (error);
   }
 
   return (
@@ -46,10 +49,10 @@ const TestConnection = () => {
       <div>
         <Close />
         <Container maxWidth="md">
-          {isLoading || loading ? (
+          {isLoading ? (
             <TestSkeleton />
           ) : (
-            <TestsList data={testResults} {...destInfo} />
+            <TestsList testResults={tests} destination={jurisdiction} destinationType={type}/>
           )}
         </Container>
       </div>

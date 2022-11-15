@@ -24,34 +24,28 @@ import {
   Chip,
 } from "@mui/material";
 
-interface dataListProps {
-  data: any,
-  destinationById: {
-    dest_type: {
-      type: String,
-    }
-    jurisdiction: {
-      description: String,
-    }
-  }
+interface testListProps {
+  testResults: any[],
+  destination: string,
+  destinationType: string,
 }
 
-const dataList = ({data, destinationById}:dataListProps) => {
+const testsList = ({testResults, destination, destinationType}:testListProps) => {
 
   const handleBack =()=>{
     history.back();
   }
   const componentRef = useRef(null);
-  const passeddata = data.filter((item) => item.status === "PASS").length;
-  const totaldata = data.length;
+  const passeddata = testResults.filter((item) => item.status === "PASS").length;
+  const totaldata = testResults.length;
   const progressPct = Number(((passeddata / totaldata) * 100).toFixed());
 
   const list = () => (
     <>
       <List>
-        {data.map((item, index) => (
+        {testResults.map((item) => (
           <>
-            <ListItem key={index}>
+            <ListItem key={item.name}>
               <ListItemIcon>
                 {item.status === "PASS" && <CheckCircleIcon color="primary" />}
                 {item.status === "FAIL" && <ErrorIcon color="secondary" />}
@@ -170,7 +164,7 @@ const dataList = ({data, destinationById}:dataListProps) => {
               fontSize="32px"
               id="test-connection"
             >
-              Running Test for {destinationById.jurisdiction === null ? 'N/A' : destinationById.jurisdiction.description} {destinationById.dest_type.type}
+              Running Test for {destination === 'unknown' ? 'N/A' : destination} {destinationType}
             </Typography>
             <Typography align="center" variant="body1">
               Some text stating that this is only testing the connection and
@@ -212,4 +206,4 @@ const dataList = ({data, destinationById}:dataListProps) => {
   );
 };
 
-export default dataList;
+export default testsList;
