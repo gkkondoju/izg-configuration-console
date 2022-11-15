@@ -2,7 +2,7 @@
   "name": "@monorepo/api",
   "version": "1.0.0",
   "description": "API for the IZ Gateway",
-  "main": "dist/server.js",
+  "main": "build/server.js",
   "author": "bharris@ainq.com",
   "license": "yes",
   "scripts": {
