@@ -1,0 +1,28 @@
+{
+  "name": "@monorepo/api",
+  "version": "1.0.0",
+  "description": "API for the IZ Gateway",
+  "main": "index.js",
+  "author": "bharris@ainq.com",
+  "license": "yes",
+  "scripts": {
+    "start": "ts-node src/server.ts",
+    "dev": "nodemon src/server.ts"
+  },
+  "devDependencies": {
+    "@types/graphql": "^14.5.0",
+    "@types/node": "^17.0.23",
+    "nodemon": "^2.0.3",
+    "prisma": "^4.6.1",
+    "ts-node": "^10.7.0",
+    "ts-node-dev": "^1.1.8"
+  },
+  "dependencies": {
+    "@prisma/client": "^4.6.1",
+    "@types/node-fetch": "^2.6.2",
+    "@yarnpkg/pnpify": "^4.0.0-rc.28",
+    "apollo-server": "^3.6.7",
+    "graphql": "^16.3.0",
+    "graphql-scalars": "^1.17.0"
+  }
+}

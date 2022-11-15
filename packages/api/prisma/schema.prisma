@@ -1,0 +1,58 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model accesscontrol {
+  souceid String? @db.VarChar(16)
+  destid  String? @db.VarChar(16)
+
+  @@ignore
+}
+
+model destinations {
+  dest_id      String    @id @db.VarChar(128)
+  dest_uri     String    @db.VarChar(1024)
+  username     String?   @db.VarChar(50)
+  password     String?   @db.VarChar(50)
+  dest_version String?   @db.VarChar(50)
+  signed_mou   Boolean   @default(false)
+  pass_expiry  DateTime? @db.Date
+  dest_type    Int
+
+  @@index([dest_type], map: "FK_DEST_TYPE_idx")
+}
+
+model messageheaderinfo {
+  dest_id String  @id @db.VarChar(128)
+  msh_03  String? @db.VarChar(128)
+  msh_04  String? @db.VarChar(128)
+  msh_05  String? @db.VarChar(128)
+  msh_06  String? @db.VarChar(128)
+}
+
+model destination_type {
+  type_id Int     @id
+  type    String? @db.VarChar(45)
+}
+
+model jurisdiction {
+  name        String  @id @db.VarChar(64)
+  description String  @db.VarChar(48)
+  dest_id     String? @db.VarChar(128)
+}
+
+model endpointstatus {
+  id             Int      @id @default(autoincrement())
+  status         String?  @db.VarChar(45)
+  detail         String?  @db.VarChar(500)
+  retry_strategy String?  @db.VarChar(500)
+  diagnostics    String?  @db.VarChar(500)
+  dest_id        String?  @db.VarChar(128)
+  ran_at         DateTime @db.DateTime(0)
+}
