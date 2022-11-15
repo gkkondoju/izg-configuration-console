@@ -6,7 +6,7 @@
     "ui-dev": "yarn workspace @monorepo/ui dev",
     "build": "yarn workspace @monorepo/client run build",
     "start": "yarn workspace @monorepo/server run start",
-    "dev": "set $(cat .env | xargs) && concurrently \"yarn api-dev\" \"yarn ui-dev\""
+    "dev": "concurrently \"yarn api-dev\" \"yarn ui-dev\""
   },
   "workspaces": [
     "packages/*"
