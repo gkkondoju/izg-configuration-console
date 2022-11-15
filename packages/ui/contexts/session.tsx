@@ -1,12 +1,20 @@
-import { createContext, useState } from 'react';
+import { createContext, useState } from "react";
 
-const SessionContext = createContext(0);
+export type SessionContextType = {
+  pageSize: number;
+  setPageSize: (newSession: number) => void;
+};
+
+const SessionContext = createContext<SessionContextType | undefined>({
+  pageSize: 5,
+  setPageSize: undefined,
+});
 
 export const SessionProvider = ({ children }) => {
-  const [pageSize, setPageSize] = useState(5);
+  const [pageSize, setPageSize] = useState<number>(5);
 
   return (
-    <SessionContext.Provider value={[pageSize, setPageSize]}>
+    <SessionContext.Provider value={{ pageSize, setPageSize }}>
       {children}
     </SessionContext.Provider>
   );

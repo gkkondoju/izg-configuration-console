@@ -75,7 +75,7 @@ const actionButtonStyle = {
 export interface ConnectionTableProps {}
 
 const ConnectionsTable = (props: ConnectionTableProps) => {
-  const [pageSize, setPageSize] = useContext(SessionContext);
+  const { pageSize, setPageSize } = useContext(SessionContext);
   const {
     loading: isLoadingConnections,
     error: isLoadingConnectionsError,

@@ -13,8 +13,8 @@ export const menuItems: MenuItem[] = [
     label: "Manage Connections",
     icon: (
       <CallMergeIcon
-        sx={{ 
-          transform: "rotate(90deg)", 
+        sx={{
+          transform: "rotate(90deg)",
         }}
         fontSize="large"
       />
@@ -23,12 +23,7 @@ export const menuItems: MenuItem[] = [
   },
   {
     label: "Add Connection",
-    icon: (
-      <CloseIcon
-        sx={{ transform: "rotate(45deg)"}}
-        fontSize="large"
-      />
-    ),
+    icon: <CloseIcon sx={{ transform: "rotate(45deg)" }} fontSize="large" />,
     path: "/add",
   },
 ];

@@ -34,7 +34,7 @@ const Layout = ({ children }: DashboardLayoutProps) => {
   return (
     <Box sx={container}>
       <Box sx={content}>
-        <Navigation items={menuItems} />
+        <Navigation/>
         <Box sx={pageContainer}>{children}</Box>
       </Box>
     </Box>
