@@ -22,8 +22,5 @@
   "dependencies": {
     "@yarnpkg/pnpify": "^4.0.0-rc.28",
     "concurrently": "^7.5.0"
-  },
-  "devDependencies": {
-    "typescript": "^4.8.4"
   }
 }
