@@ -1,33 +1,26 @@
 import * as React from "react";
-import { Typography , Box, BoxProps} from "@mui/material";
+import { Typography, Box, BoxProps } from "@mui/material";
 import { useQuery } from "@apollo/client";
-import { DESTINATION_INFO } from "../../lib/queries/history/connectionhistory"
-import TestHistory from './testHistory';
-import ConnectionInfo from './connectionInfo';
-import Close from '../Close';
+import { DESTINATION_INFO } from "../../lib/queries/history/connectionhistory";
+import TestHistory from "./testHistory";
+import ConnectionInfo from "./connectionInfo";
+import Close from "../Close";
 
-interface HistoryProps {
-  destId: String
-}
-
-const ConnectionHistory = (props:HistoryProps) => {
-  
-  const {loading, error, data} = useQuery(DESTINATION_INFO , {
-    variables : {destId: props.destId}
+const ConnectionHistory = (props: any) => {
+  const { loading, error, data } = useQuery(DESTINATION_INFO, {
+    variables: { destId: props.destId },
   });
-  
-  if (loading) return null;
-  if (error) { 
-    throw new Error(error.message);
-  };
 
+  if (loading) return null;
+  if (error) {
+    throw new Error(error.message);
+  }
 
   function Item(props: BoxProps) {
     const { sx, ...other } = props;
     return (
       <Box
         sx={{
-         
           ...sx,
         }}
         {...other}
@@ -37,23 +30,28 @@ const ConnectionHistory = (props:HistoryProps) => {
 
   return (
     <div>
-    <Close />
-    <Box sx={{ marginTop: 4 }}>  
-        <Typography  variant="h1" fontWeight={700} fontSize="32px" id="title-history">
+      <Close />
+      <Box sx={{ marginTop: 4 }}>
+        <Typography
+          variant="h1"
+          fontWeight={700}
+          fontSize="32px"
+          id="title-history"
+        >
           Connection History
         </Typography>
-        <Typography variant="body1" >
+        <Typography variant="body1">
           Find users, view the test history and view additional information.
         </Typography>
-      </Box> 
-    <Box  sx={{ display: 'flex', gap: 4 }}>
-      <Item sx={{ width: '40%',}}>
-        <ConnectionInfo {...data}/>
-      </Item>
-      <Item sx={{ flexGrow: 1}}>
-        <TestHistory destId={data.destinationById.dest_id}/>
-      </Item>
-    </Box>
+      </Box>
+      <Box sx={{ display: "flex", gap: 4 }}>
+        <Item sx={{ width: "40%" }}>
+          <ConnectionInfo {...data} />
+        </Item>
+        <Item sx={{ flexGrow: 1 }}>
+          <TestHistory destId={data.destinationById.dest_id} />
+        </Item>
+      </Box>
     </div>
   );
 };

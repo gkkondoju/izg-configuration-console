@@ -7,6 +7,7 @@ import { ConnectionTestRequest } from "../../../../lib/connectiontests/types/Con
 import { ConnectionTestResult } from "../../../../lib/connectiontests/types/ConnectionTestResult";
 import ConnectionTestFactory from "../../../../lib/connectiontests/ConnectionTestFactory";
 import { APIResponse } from "../../../../lib/connectiontests/types/APIResponse";
+import Status from "../../../../components/Status";
 
 export default async function handler(
   request: NextApiRequest,
@@ -28,22 +29,36 @@ export default async function handler(
       destUrl: "unknown",
       destType: "",
       jurisdictionDescription: "",
-      message: `The requested destination ${id} was not found in our records`,
-      isSuccess: false,
-      testResults: [],
+      testResults: [
+        {
+          name: "",
+          detail:
+            "No tests were run because the requested destination was not found.",
+          status: null,
+          order: -1,
+          message: `The requested destination ${id} was not found in our records.`,
+        },
+      ],
     });
   }
 
   if (destination && !isValidUrl(destination.data?.destinationById.dest_uri)) {
     response.status(constants.HTTP_STATUS_INTERNAL_SERVER_ERROR).json({
-      destId: id,
+      destId: id as string,
       destUrl: destination.data?.destinationById.dest_uri,
       destType: destination.data?.destinationById.dest_type.type,
       jurisdictionDescription:
         destination.data?.destinationById.jurisdiction.description,
-      message: `The URL retrieved for ${id} is malformed`,
-      isSuccess: false,
-      testResults: [],
+      testResults: [
+        {
+          name: "",
+          detail:
+            "No tests were run because the requested destination's URL is malformed.",
+          status: null,
+          order: -1,
+          message: `The URL retrieved for ${id} is malformed`,
+        },
+      ],
     });
   }
 
@@ -94,12 +109,15 @@ export default async function handler(
   });
 }
 
-async function lookupDestinationURL(destId: string) {
+async function lookupDestinationURL(destId: string | string[]) {
   const apolloClient = await apolloClientFactory();
   return await queryDestination(destId, apolloClient);
 }
 
-const queryDestination = async (destId: String, apolloClient: any) => {
+const queryDestination = async (
+  destId: String | string[],
+  apolloClient: any
+) => {
   try {
     return await apolloClient.query({
       query: FETCH_DESTINATION,

@@ -44,8 +44,10 @@ export default class CIPHER extends ConnectionTest {
         resolve([
           {
             ...cipherConnectionTestResult,
-            detail: res.socket.getCipher(),
-            status: this.isAcceptableCipher(res.socket.getCipher().standardName)
+            detail: (res.socket as any).getCipher(),
+            status: this.isAcceptableCipher(
+              (res.socket as any).getCipher().standardName
+            )
               ? TestStatus.PASS
               : TestStatus.FAIL,
           },
