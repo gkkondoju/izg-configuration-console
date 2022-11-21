@@ -24,7 +24,7 @@ const TestConnection = () => {
       .then(res => { 
         console.log(res)
         if(!res.ok) {
-          throw new Error(res.statusText);
+          setError(res.statusText)
         } 
         return res.json();
       }

@@ -4,11 +4,11 @@ import CloseIcon from "@mui/icons-material/Close";
 import { MenuItem } from ".";
 
 export const menuItems: MenuItem[] = [
-  {
-    label: "User Profile",
-    icon: <AccountCircleIcon fontSize="large" />,
-    path: "/user",
-  },
+  // {
+  //   label: "User Profile",
+  //   icon: <AccountCircleIcon fontSize="large" />,
+  //   path: "/user",
+  // },
   {
     label: "Manage Connections",
     icon: (
@@ -21,14 +21,14 @@ export const menuItems: MenuItem[] = [
     ),
     path: "/manage",
   },
-  {
-    label: "Add Connection",
-    icon: (
-      <CloseIcon
-        sx={{ transform: "rotate(45deg)"}}
-        fontSize="large"
-      />
-    ),
-    path: "/add",
-  },
+  // {
+  //   label: "Add Connection",
+  //   icon: (
+  //     <CloseIcon
+  //       sx={{ transform: "rotate(45deg)"}}
+  //       fontSize="large"
+  //     />
+  //   ),
+  //   path: "/add",
+  // },
 ];

@@ -171,7 +171,7 @@ const ConnectionsTable = (props : ConnectionTableProps) => {
         };
         return (
           <div>
-            <Tooltip arrow placement="bottom" title="Edit">
+            {/* <Tooltip arrow placement="bottom" title="Edit">
               <IconButton
                 id="edit"
                 aria-label="edit"
@@ -180,7 +180,7 @@ const ConnectionsTable = (props : ConnectionTableProps) => {
               >
                 <EditIcon fontSize="small" />
               </IconButton>
-            </Tooltip>
+            </Tooltip> */}
             <Link href={`/test/${params.id}`}>
             <Tooltip arrow placement="bottom" title="Test">
               <IconButton
