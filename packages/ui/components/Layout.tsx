@@ -1,11 +1,6 @@
 /** @jsxImportSource @emotion/react */
-import { css } from "@emotion/react";
 import Box from "@mui/material/Box";
-import { useState } from "react";
-import AppHeader from "../components/AppHeader/index";
 import Navigation from "./Navigation";
-import { menuItems } from "../components/Navigation/menuItems";
-import { useRouter } from "next/router";
 
 const container = {
   display: "flex",
@@ -34,7 +29,7 @@ const Layout = ({ children }: DashboardLayoutProps) => {
   return (
     <Box sx={container}>
       <Box sx={content}>
-        <Navigation items={menuItems} />
+        <Navigation/>
         <Box sx={pageContainer}>{children}</Box>
       </Box>
     </Box>

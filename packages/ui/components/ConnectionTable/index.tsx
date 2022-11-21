@@ -18,8 +18,8 @@ import HistoryIcon from "@mui/icons-material/History";
 import GppMaybeIcon from "@mui/icons-material/GppMaybe";
 import Link from "next/link";
 import Status from "../Status";
-import { useContext } from 'react';
-import SessionContext from '../../contexts/session';
+import { useContext } from "react";
+import SessionContext from "../../contexts/session";
 
 const dataGridCustom = {
   "&.MuiDataGrid-root.MuiDataGrid-autoHeight.MuiDataGrid-root--densityComfortable":
@@ -30,7 +30,6 @@ const dataGridCustom = {
       border: "none",
     },
   "& .MuiDataGrid-main": {
-    borderRadius: "0px",
     marginTop: "-8px",
     backgroundColor: "#FFF",
     borderRadius: "0 0 30px 30px",
@@ -75,9 +74,8 @@ const actionButtonStyle = {
 
 export interface ConnectionTableProps {}
 
-const ConnectionsTable = (props : ConnectionTableProps) => {
-  
-  const [pageSize, setPageSize] = useContext(SessionContext);
+const ConnectionsTable = (props: ConnectionTableProps) => {
+  const { pageSize, setPageSize } = useContext(SessionContext);
   const {
     loading: isLoadingConnections,
     error: isLoadingConnectionsError,
@@ -118,29 +116,48 @@ const ConnectionsTable = (props : ConnectionTableProps) => {
           ? new Date(value.ran_at).toLocaleString()
           : "Unknown";
         return (
-          <Tooltip 
-          arrow
-          placement="bottom"
-          componentsProps={{
-            tooltip: {
-              sx: {  
-                backgroundColor: "#ffffff",
-                boxShadow:"0px 3px 5px rgb(0 0 0 / 25%)",
-                border: "1px solid #BFBFBF",
-                '& .MuiTooltip-arrow': {
-                  color: '#BFBFBF',
+          <Tooltip
+            arrow
+            placement="bottom"
+            componentsProps={{
+              tooltip: {
+                sx: {
+                  backgroundColor: "#ffffff",
+                  boxShadow: "0px 3px 5px rgb(0 0 0 / 25%)",
+                  border: "1px solid #BFBFBF",
+                  "& .MuiTooltip-arrow": {
+                    color: "#BFBFBF",
+                  },
                 },
-              }
-            }
-          }}
+              },
+            }}
             title={
               <React.Fragment>
                 <Card elevation={0}>
-                  <CardHeader title={<Typography sx={{ fontWeight: "bold"}} color="#212121">{value?.status}</Typography>} subheader={<Typography sx={{ fontWeight: "regular"}} variant="body2" color="#212121">{asOfDate}</Typography>}/>
+                  <CardHeader
+                    title={
+                      <Typography sx={{ fontWeight: "bold" }} color="#212121">
+                        {value?.status}
+                      </Typography>
+                    }
+                    subheader={
+                      <Typography
+                        sx={{ fontWeight: "regular" }}
+                        variant="body2"
+                        color="#212121"
+                      >
+                        {asOfDate}
+                      </Typography>
+                    }
+                  />
                   {!isConnected && (
                     <CardContent>
-                      <Box sx={{ fontWeight: "bold", marginTop: "-16px"  }}>Details:</Box>
-                      <Box sx={{ fontWeight: "regular", marginBottom: "8px" }}>{value?.detail}</Box>
+                      <Box sx={{ fontWeight: "bold", marginTop: "-16px" }}>
+                        Details:
+                      </Box>
+                      <Box sx={{ fontWeight: "regular", marginBottom: "8px" }}>
+                        {value?.detail}
+                      </Box>
                       <Box sx={{ fontWeight: "bold" }}>Diagnostics:</Box>
                       <Box sx={{ fontWeight: "regular", marginBottom: "8px" }}>
                         {value?.diagnostics}
@@ -155,7 +172,7 @@ const ConnectionsTable = (props : ConnectionTableProps) => {
               </React.Fragment>
             }
           >
-            <Status status={value} color={false}/>
+            <Status status={value} color={false} />
           </Tooltip>
         );
       },
@@ -182,28 +199,28 @@ const ConnectionsTable = (props : ConnectionTableProps) => {
               </IconButton>
             </Tooltip> */}
             <Link href={`/test/${params.id}`}>
-            <Tooltip arrow placement="bottom" title="Test">
-              <IconButton
-                id="test"
-                aria-label="test"
-                color="primary"
-                sx={actionButtonStyle}
-              >
-                <Image src={testConnectionImage} />
-              </IconButton>
-            </Tooltip>
+              <Tooltip arrow placement="bottom" title="Test">
+                <IconButton
+                  id="test"
+                  aria-label="test"
+                  color="primary"
+                  sx={actionButtonStyle}
+                >
+                  <Image src={testConnectionImage} />
+                </IconButton>
+              </Tooltip>
             </Link>
             <Link href={`/history/${params.id}`}>
-            <Tooltip arrow placement="bottom" title="History">
-              <IconButton
-                id="history"
-                aria-label="history"
-                color="secondary"
-                sx={actionButtonStyle}
-              >
-                <HistoryIcon fontSize="small" />
-              </IconButton>
-            </Tooltip>
+              <Tooltip arrow placement="bottom" title="History">
+                <IconButton
+                  id="history"
+                  aria-label="history"
+                  color="secondary"
+                  sx={actionButtonStyle}
+                >
+                  <HistoryIcon fontSize="small" />
+                </IconButton>
+              </Tooltip>
             </Link>
           </div>
         );
@@ -244,7 +261,7 @@ const ConnectionsTable = (props : ConnectionTableProps) => {
             sortModel: [{ field: "jurisdiction", sort: "desc" }],
           },
         }}
-        disableSelectionOnClick       
+        disableSelectionOnClick
         disableColumnMenu
         onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
         rowsPerPageOptions={[5, 10, 20]}

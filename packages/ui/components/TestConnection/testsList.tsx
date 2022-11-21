@@ -25,18 +25,23 @@ import {
 } from "@mui/material";
 
 interface testListProps {
-  testResults: any[],
-  destination: string,
-  destinationType: string,
+  testResults: any[];
+  destination: string;
+  destinationType: string;
 }
 
-const testsList = ({testResults, destination, destinationType}:testListProps) => {
-
-  const handleBack =()=>{
+const testsList = ({
+  testResults,
+  destination,
+  destinationType,
+}: testListProps) => {
+  const handleBack = () => {
     history.back();
-  }
+  };
   const componentRef = useRef(null);
-  const passeddata = testResults.filter((item) => item.status === "PASS").length;
+  const passeddata = testResults.filter(
+    (item) => item.status === "PASS"
+  ).length;
   const totaldata = testResults.length;
   const progressPct = Number(((passeddata / totaldata) * 100).toFixed());
 
@@ -107,52 +112,52 @@ const testsList = ({testResults, destination, destinationType}:testListProps) =>
 
   const buttonGroup = () => (
     <Container
-          maxWidth="sm"
+      maxWidth="sm"
+      sx={{
+        marginTop: 4,
+      }}
+    >
+      <ButtonGroup
+        variant="contained"
+        fullWidth
+        size="large"
+        sx={{
+          margin: "1em",
+          alignItems: "center",
+          borderRadius: "30px",
+        }}
+      >
+        <Button
+          color="primary"
+          variant="outlined"
+          onClick={handleBack}
           sx={{
-            marginTop: 4,
+            borderRadius: "30px",
           }}
         >
-          <ButtonGroup
-            variant="contained"
-            fullWidth
-            size="large"
-            sx={{
-              margin: "1em",
-              alignItems: "center",
-              borderRadius: "30px",
-            }}
-          >
+          BACK TO CONNECTIONS
+        </Button>
+        <ReactToPrint
+          trigger={() => (
             <Button
+              variant="contained"
               color="primary"
-              variant="outlined"
-              onClick={handleBack}
+              endIcon={<PrintIcon />}
               sx={{
                 borderRadius: "30px",
               }}
             >
-              BACK TO CONNECTIONS
+              PRINT
             </Button>
-            <ReactToPrint
-              trigger={() => (
-                <Button
-                  variant="contained"
-                  color="primary"
-                  endIcon={<PrintIcon />}
-                  sx={{
-                    borderRadius: "30px",
-                  }}
-                >
-                  PRINT
-                </Button>
-              )}
-              content={() => componentRef.current}
-            />
-          </ButtonGroup>
-        </Container>
-  )
+          )}
+          content={() => componentRef.current}
+        />
+      </ButtonGroup>
+    </Container>
+  );
 
   return (
-    <div sx={{ position: "relative" }}>
+    <Box sx={{ position: "relative" }}>
       <div>
         <Container ref={componentRef}>
           <Box sx={{ marginTop: 8 }}>
@@ -164,7 +169,8 @@ const testsList = ({testResults, destination, destinationType}:testListProps) =>
               fontSize="32px"
               id="test-connection"
             >
-              Running Test for {destination === 'unknown' ? 'N/A' : destination} {destinationType}
+              Running Test for {destination === "unknown" ? "N/A" : destination}{" "}
+              {destinationType}
             </Typography>
             <Typography align="center" variant="body1">
               Some text stating that this is only testing the connection and
@@ -202,7 +208,7 @@ const testsList = ({testResults, destination, destinationType}:testListProps) =>
         </Container>
         {buttonGroup()}
       </div>
-    </div>
+    </Box>
   );
 };
 

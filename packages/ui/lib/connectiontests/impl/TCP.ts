@@ -38,7 +38,7 @@ export default class TCP extends ConnectionTest {
         }
       );
 
-      client.on("error", (error) => {
+      client.on("error", (error: any) => {
         resolve([
           {
             ...dnsConnectionTestResult,

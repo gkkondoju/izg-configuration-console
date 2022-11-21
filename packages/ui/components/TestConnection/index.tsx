@@ -2,7 +2,7 @@ import * as React from "react";
 import TestSkeleton from "../../components/Skeleton";
 import { useState, useEffect } from "react";
 import Close from "../Close";
-import { Container } from "@mui/material";
+import { Box, Container } from "@mui/material";
 import TestsList from "./testsList";
 import { useRouter } from "next/router";
 
@@ -45,7 +45,7 @@ const TestConnection = () => {
   }
 
   return (
-    <div sx={{ position: "relative" }}>
+    <Box sx={{ position: "relative" }}>
       <div>
         <Close />
         <Container maxWidth="md">
@@ -56,7 +56,7 @@ const TestConnection = () => {
           )}
         </Container>
       </div>
-    </div>
+    </Box>
   );
 };
 

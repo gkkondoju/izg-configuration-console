@@ -4,7 +4,18 @@ import IZGLogo from "./Branding";
 import MuiDrawer from "@mui/material/Drawer";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import { Collapse , styled , List, Divider, IconButton , ListItem, ListItemButton, ListItemIcon, ListItemText} from "@mui/material";
+import {
+  Collapse,
+  styled,
+  List,
+  Divider,
+  IconButton,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+} from "@mui/material";
+import { menuItems } from "./menuItems";
 
 const drawerWidthOpen = "20em";
 const drawerWidthClosed = "5em";
@@ -36,7 +47,7 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 
 const Drawer = styled(MuiDrawer, {
   shouldForwardProp: (prop) => prop !== "open",
-  })(({ open }) => ({
+})(({ open }) => ({
   width: drawerWidthOpen,
   flexShrink: 1,
   whiteSpace: "nowrap",
@@ -50,17 +61,17 @@ const Drawer = styled(MuiDrawer, {
   }),
 }));
 
-export interface MenuItem {
+export type MenuItem = {
   label: string;
   icon: any;
   path: string;
-}
+};
 
-export interface MenuItems extends Array<MenuItem> {
-  items: MenuItem[];
-}
+// export interface MenuItems extends Array<MenuItem> {
+//   items: MenuItem[];
+// }
 
-const MiniDrawer = (props: MenuItems) => {
+const MiniDrawer = () => {
   const [open, setOpen] = React.useState(true);
   const [selectedIndex, setSelectedIndex] = React.useState(1);
 
@@ -70,48 +81,50 @@ const MiniDrawer = (props: MenuItems) => {
 
   const handleListItemClick = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>,
-    index: number,
+    index: number
   ) => {
     setSelectedIndex(index);
-  };  
+  };
 
   const list = () => (
     <>
-      <List 
-      sx={{
-        padding: "0 0",
-        '&& .Mui-selected , && .Mui-selected:hover': {
-        backgroundColor: "white",
-        '&, & .MuiListItemIcon-root': {
-          color: '#015A2F',
-        },
-        '&, & .MuiListItemText-root': {
-          color: 'black',
-        },
-        'span.MuiTypography-root.MuiTypography-body1.MuiListItemText-primary.css-8dlta7-MuiTypography-root': {
-          fontWeight: 700,
-        },
-        },
-        '& .MuiListItemButton-root:hover': {
-          bgcolor: "rgb(255 255 255 / 10%)",
-          '&, & .MuiListItemIcon-root': {
-            color: 'white',
+      <List
+        sx={{
+          padding: "0 0",
+          "&& .Mui-selected , && .Mui-selected:hover": {
+            backgroundColor: "white",
+            "&, & .MuiListItemIcon-root": {
+              color: "#015A2F",
+            },
+            "&, & .MuiListItemText-root": {
+              color: "black",
+            },
+            "span.MuiTypography-root.MuiTypography-body1.MuiListItemText-primary.css-8dlta7-MuiTypography-root":
+              {
+                fontWeight: 700,
+              },
           },
-        },
-      }}
+          "& .MuiListItemButton-root:hover": {
+            bgcolor: "rgb(255 255 255 / 10%)",
+            "&, & .MuiListItemIcon-root": {
+              color: "white",
+            },
+          },
+        }}
       >
-        {props.items.map((item: MenuItem, index) => (
+        {menuItems.map((item: MenuItem, index) => (
           <NextLink key={item.label} href={item.path} passHref>
-            <ListItem key={item.label}
-            sx={{
-              padding: "0 0",
-            }}
+            <ListItem
+              key={item.label}
+              sx={{
+                padding: "0 0",
+              }}
             >
               <ListItemButton
-               sx={{
-                padding: "1rem 1.5rem",
-                borderBottom: "1px solid #00D998",
-                '&& .Mui-selected , && .Mui-selected:hover': {
+                sx={{
+                  padding: "1rem 1.5rem",
+                  borderBottom: "1px solid #00D998",
+                  "&& .Mui-selected , && .Mui-selected:hover": {
                     fontWeight: "700",
                   },
                 }}
@@ -121,25 +134,24 @@ const MiniDrawer = (props: MenuItems) => {
                 id={item.label}
               >
                 <ListItemIcon
-                sx={{
-                  color:"white"
-                }}
+                  sx={{
+                    color: "white",
+                  }}
                 >
-                {item.icon}
+                  {item.icon}
                 </ListItemIcon>
                 <ListItemText primary={item.label} />
               </ListItemButton>
               <Divider color="#00D998" />
             </ListItem>
-          </NextLink>              
+          </NextLink>
         ))}
       </List>
     </>
   );
 
   return (
-    <Drawer variant="permanent" open={open} id='navigation'
-    >
+    <Drawer variant="permanent" open={open} id="navigation">
       <DrawerHeader>
         <IconButton onClick={handleClick}>
           {!open ? (

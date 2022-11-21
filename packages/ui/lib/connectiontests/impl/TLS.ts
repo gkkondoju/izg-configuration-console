@@ -34,14 +34,14 @@ export default class TLS extends ConnectionTest {
         resolve([
           {
             ...dnsConnectionTestResult,
-            detail: res.socket.getProtocol(),
-            message: this.isGoodTLSVersion(res.socket.getProtocol())
+            detail: (res.socket as any).getProtocol(),
+            message: this.isGoodTLSVersion((res.socket as any).getProtocol())
               ? ""
               : TestResponseMessages.TLS_VERSION_FAIL(
                   options.hostname,
-                  res.socket.getProtocol()
+                  (res.socket as any).getProtocol()
                 ),
-            status: this.isGoodTLSVersion(res.socket.getProtocol())
+            status: this.isGoodTLSVersion((res.socket as any).getProtocol())
               ? TestStatus.PASS
               : TestStatus.FAIL,
           },
