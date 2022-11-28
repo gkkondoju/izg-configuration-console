@@ -1,0 +1,61 @@
+version: '1.0'
+services:
+  mysql:
+    container_name: mysql
+    ports:
+      - '3306:3306'
+    image: mysql:8.0
+    restart: always
+    environment:
+      - MYSQL_DATABASE=phiz
+      - MYSQL_ROOT_PASSWORD=winter2022
+    volumes:
+      - mysql:/var/lib/mysql
+  prisma:
+    links:
+      - mysql
+    depends_on:
+      - mysql
+    container_name: prisma
+    ports:
+      - '5555:5555'
+    build:
+      context: packages/api/prisma
+      dockerfile: Dockerfile
+    volumes:
+      - /app/prisma
+    environment:
+      DB_HOST: localhost
+      DB_PORT: 3306
+      DB_USER: remoteHub
+      DB_PASSWORD: Hubpass@1
+      DB_NAME: phiz
+  api:
+    links:
+      - mysql
+    depends_on:
+      - mysql
+    container_name: api
+    ports:
+      - '4000:4000'
+    build:
+      context: packages/api
+      dockerfile: Dockerfile
+    volumes:
+      - ./packages/api:/app
+      - /app/node_modules
+      - /app/prisma
+  ui:
+    container_name: ui
+    ports:
+      - '3000:3000'
+    build:
+      context: packages/ui
+      dockerfile: Dockerfile
+    volumes:
+      - ./packages/ui:/app
+      - /app/node_modules
+      - /app/.next
+
+volumes: #define our mysql volume used above
+  mysql:
