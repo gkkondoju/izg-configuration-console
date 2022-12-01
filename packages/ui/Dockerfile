@@ -26,9 +26,15 @@ RUN rm -rf .yarn/cache
 ##
 RUN yarn build
 
+FROM node:18-alpine  
+WORKDIR /usr/src/app
+COPY package.json ./
+RUN yarn install --production && rm -rf "$(yarn cache clean)"
+COPY --from=builder /usr/src/app/.next ./.next
 
 ##
 ## Expose our port and run the production app, assumes `backend-api/package.json` has a script named `start:prod`
 ##
 #EXPOSE 3000
 CMD ["yarn", "start"]
+

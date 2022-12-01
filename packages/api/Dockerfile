@@ -11,22 +11,18 @@ WORKDIR /usr/src/app
 ##
 ADD . .
 
-##
-## This is needed as the install state will be invalid otherwise
-##
 RUN yarn install
 RUN yarn run prisma generate
 RUN rm -rf .yarn/cache
-##
-## Change working directory to the workspace we want to build
-##
-#WORKDIR packages/api
-
-##
-## Optionally run a `build` script to compile (tsc, babel, etc) the source files to /packages/backend-api/dist
-##
 RUN yarn build
 
+FROM node:18-alpine  
+WORKDIR /usr/src/app
+COPY package.json ./
+COPY prisma ./
+RUN yarn install --production && rm -rf "$(yarn cache clean)"
+RUN yarn run prisma generate
+COPY --from=builder /usr/src/app/build ./build
 
 ##
 ## Expose our port and run the production app, assumes `backend-api/package.json` has a script named `start:prod`
