@@ -12,18 +12,25 @@ export const IZG_STATUS_UPDATE_POLL_RATE =
   ONE_HOUR_MILLISECONDS;
 const IZG_STATUS_ENDPOINT_URL =
   process.env.IZG_STATUS_ENDPOINT_URL || "unknown";
-const IZG_ENDPOINT_CERTIFICATE_PATH =
-  process.env.IZG_ENDPOINT_CERTIFICATE_PATH || "";
-const IZG_ENDPOINT_KEYFILE_PATH = process.env.IZG_ENDPOINT_KEYFILE_PATH || "";
+const IZG_ENDPOINT_CERT_DIR_PATH =
+  process.env.IZG_ENDPOINT_CERT_DIR_PATH || "unknown";
 const IZG_ENDPOINT_PASSCODE = process.env.IZG_ENDPOINT_PASSCODE || "";
+
+const pemPath = fs
+  .readdirSync(IZG_ENDPOINT_CERT_DIR_PATH)
+  .filter((fn) => fn.endsWith(".pem"))[0];
+
+const keyPath = fs
+  .readdirSync(IZG_ENDPOINT_CERT_DIR_PATH)
+  .filter((fn) => fn.endsWith(".key"))[0];
 
 const httpsAgentOptions = {
   cert: fs.readFileSync(
-    path.resolve(__dirname, IZG_ENDPOINT_CERTIFICATE_PATH),
+    path.resolve(IZG_ENDPOINT_CERT_DIR_PATH, pemPath),
     `utf-8`
   ),
   key: fs.readFileSync(
-    path.resolve(__dirname, IZG_ENDPOINT_KEYFILE_PATH),
+    path.resolve(IZG_ENDPOINT_CERT_DIR_PATH, keyPath),
     "utf-8"
   ),
   passphrase: IZG_ENDPOINT_PASSCODE,

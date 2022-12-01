@@ -1,13 +1,17 @@
 {
   "name": "izg-configuration-console",
   "packageManager": "yarn@3.2.4",
+  "private": true,
   "scripts": {
-    "start": "docker-compose up",
-    "build": "docker-compose build",
-    "stop": "docker-compose down",
-    "clean": "docker system prune -af",
-    "clean:volumes": "docker volume prune -f",
-    "seed": "docker exec -it prisma npm run seed"
+    "api-dev": "yarn workspace @monorepo/api dev",
+    "ui-dev": "yarn workspace @monorepo/ui dev",
+    "build-api": "yarn workspace @monorepo/api run build",
+    "build-ui": "yarn workspace @monorepo/ui run build",
+    "start-api": "yarn workspace @monorepo/api start",
+    "start-ui": "yarn workspace @monorepo/ui start",
+    "dev": "concurrently \"yarn api-dev\" \"yarn ui-dev\"",
+    "build": "concurrently \"yarn build-api\" \"yarn build-ui\"",
+    "start": "concurrently \"yarn start-api\" \"yarn start-ui\""
   },
   "workspaces": [
     "packages/*"

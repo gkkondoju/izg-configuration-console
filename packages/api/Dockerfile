@@ -1,17 +1,35 @@
-FROM node:18.11.0
-RUN yarn install -g --unsafe-perm prisma
+# syntax = docker/dockerfile:experimental
 
-RUN mkdir /app
-WORKDIR /app
+##
+## Base node image used to set up the production build
+##
+FROM node:18-alpine as builder
+WORKDIR /usr/src/app
 
-COPY package*.json ./
-COPY prisma ./prisma/
+##
+## Add all files from the current directory (if you need to ignore anything, you can use .dockerignore)
+##
+ADD . .
 
-ARG MYSQL_URL
-ENV MYSQL_URL "$MYSQL_URL"
-
+##
+## This is needed as the install state will be invalid otherwise
+##
 RUN yarn install
-RUN yarn prisma db pull
-RUN yarn prisma generate
+RUN yarn run prisma generate
+RUN rm -rf .yarn/cache
+##
+## Change working directory to the workspace we want to build
+##
+#WORKDIR packages/api
 
-CMD [ "yarn", "start" ]
+##
+## Optionally run a `build` script to compile (tsc, babel, etc) the source files to /packages/backend-api/dist
+##
+RUN yarn build
+
+
+##
+## Expose our port and run the production app, assumes `backend-api/package.json` has a script named `start:prod`
+##
+#EXPOSE 3000
+CMD ["yarn", "start"]

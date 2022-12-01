@@ -5,6 +5,7 @@
   "main": "build/server.js",
   "author": "bharris@ainq.com",
   "license": "yes",
+  "private": true,
   "scripts": {
     "start": "node build/server.js",
     "dev": "nodemon src/server.ts",
