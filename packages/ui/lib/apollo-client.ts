@@ -1,19 +1,13 @@
-import {
-  ApolloClient,
-  InMemoryCache,
-  createHttpLink,
-  ApolloLink,
-} from "@apollo/client";
+import { ApolloClient, InMemoryCache } from "@apollo/client";
 
 const uri = process.env.GRAPHQL_URL;
 
 const apolloClientFactory = async () => {
-  const httpLink = createHttpLink({ uri });
-  const link = ApolloLink.from([httpLink]);
-  const cache = new InMemoryCache();
+  const isBrowser = typeof window !== "undefined";
 
+  const cache = new InMemoryCache();
   const apolloClient = new ApolloClient({
-    link,
+    uri: isBrowser ? "http://localhost:4000" : "http://api:4000",
     cache,
   });
 
