@@ -7,7 +7,6 @@ import { ConnectionTestRequest } from "../../../../lib/connectiontests/types/Con
 import { ConnectionTestResult } from "../../../../lib/connectiontests/types/ConnectionTestResult";
 import ConnectionTestFactory from "../../../../lib/connectiontests/ConnectionTestFactory";
 import { APIResponse } from "../../../../lib/connectiontests/types/APIResponse";
-import Status from "../../../../components/Status";
 
 export default async function handler(
   request: NextApiRequest,
@@ -63,7 +62,7 @@ export default async function handler(
   }
 
   const destIdURL = convertUrlStringToUrlObject(
-    destination.data?.destinationById.dest_uri
+    destination?.data?.destinationById.dest_uri
   );
 
   const connectionTestRequest: ConnectionTestRequest = {
@@ -118,17 +117,18 @@ const queryDestination = async (
   destId: String | string[],
   apolloClient: any
 ) => {
-  try {
-    return await apolloClient.query({
-      query: FETCH_DESTINATION,
-      variables: { destId: destId },
-    });
-  } catch (e) {
-    console.log(
-      `Error ---> could not get record for ${destId} using FETCH_DESTINATION query: ${e}`
-    );
-  }
-  return null;
+  console.log("DEBUG ---> running query for " + destId);
+  //try {
+  return await apolloClient.query({
+    query: FETCH_DESTINATION,
+    variables: { destId: destId },
+  });
+  // } catch (e) {
+  //   console.log(
+  //     `Error ---> could not get record for ${destId} using FETCH_DESTINATION query: ${e}`
+  //   );
+  // }
+  //return null;
 };
 
 const convertUrlStringToUrlObject = (urlString: string) => {

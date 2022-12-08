@@ -1,6 +1,7 @@
 {
   "name": "izg-configuration-console",
   "packageManager": "yarn@3.2.4",
+  "private": true,
   "scripts": {
     "api-dev": "yarn workspace @monorepo/api dev",
     "ui-dev": "yarn workspace @monorepo/ui dev",
