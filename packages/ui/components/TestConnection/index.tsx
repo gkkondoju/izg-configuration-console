@@ -21,7 +21,7 @@ const TestConnection = () => {
     if (!router.isReady) return;
     setError(null);
     setLoading(true);
-    console.log("DEBUG ---> getting health of " + id);
+
     fetch(`${TEST_API_DOMAIN}/api/tests/connectiontest/${id}`)
       .then((res) => {
         if (!res.ok) {

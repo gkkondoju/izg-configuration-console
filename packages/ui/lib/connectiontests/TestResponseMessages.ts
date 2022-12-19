@@ -14,4 +14,12 @@ export class TestResponseMessages {
     `IZ Gateway requires TLS 1.2 or 1.3. The endpoint at ${url} connected using ${protocolVersion} which is insecure.`;
   public static readonly UNKNOWN_ERROR = (url: string) =>
     `Unknown error trying to connect to ${url}`;
+  public static readonly WSDL_NOT_SUPPORTED = (location: string) =>
+    `The WSDL for this endpoint ${location} is not one of those supported by IZ Gateway.`;
+  public static readonly WSDL_NOT_ACCESSED =
+    "The WSDL {WSDL-location} for this endpoint could not be accessed.";
+  public static readonly CONNECTIVITY_ECHOBACK_NOT_EXPECTED =
+    "The echoback response did not contain the expected content.";
+  public static readonly CONNECTIVITY_WARNING = (testEchoback: string, responseEchoback: string) =>
+    `IZ Gateway expected ${testEchoback} but got back ${testEchoback}.`;
 }
