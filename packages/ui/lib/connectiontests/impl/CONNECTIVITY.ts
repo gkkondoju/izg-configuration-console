@@ -130,22 +130,22 @@ export default class CONNECTIVITY extends ConnectionTest {
                 },
               ]);
             }
-            else {
+            else if (responseEchoback.includes(requestEchoback)){
               resolve([
                 {
                   ...connectivityTestResult,
                   detail: null,
-                  message: TestResponseMessages.CONNECTIVITY_ECHOBACK_NOT_EXPECTED,
-                  status: TestStatus.FAIL,
+                  message: TestResponseMessages.CONNECTIVITY_WARNING(requestEchoback,responseEchoback),
+                  status: TestStatus.WARNING,
                 },
               ]);
             }
           }
-          else {
+          else if (requestEchoback !== responseEchoback || !responseEchoback.includes(requestEchoback)){
             resolve([
               {
                 ...connectivityTestResult,
-                message:TestResponseMessages.WSDL_NOT_ACCESSED,
+                message:TestResponseMessages.CONNECTIVITY_ECHOBACK_NOT_EXPECTED,
                 status: TestStatus.FAIL,
               },
             ]);
