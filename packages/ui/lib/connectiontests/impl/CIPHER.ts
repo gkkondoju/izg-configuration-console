@@ -36,7 +36,7 @@ export default class CIPHER extends ConnectionTest {
       status: this.status,
     };
 
-    const IZG_ENDPOINT_CERT_DIR_PATH = "C://Users//papatel//Documents//IzGateway//certs//DigiCert_certs//certs";
+    const IZG_ENDPOINT_CERT_DIR_PATH = process.env.IZG_ENDPOINT_CERT_DIR_PATH || "unknown";
     const IZG_ENDPOINT_PASSCODE = process.env.IZG_ENDPOINT_PASSCODE || "";
 
     const crtPath = fs
