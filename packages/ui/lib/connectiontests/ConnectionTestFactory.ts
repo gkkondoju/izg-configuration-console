@@ -4,6 +4,8 @@ import DNS from "./impl/DNS";
 import TCP from "./impl/TCP";
 import TLS from "./impl/TLS";
 import CIPHER from "./impl/CIPHER";
+import WSDL from "./impl/WSDL";
+import CONNECTIVITY from "./impl/CONNECTIVITY";
 
 export default class ConnectionTestFactory {
   static getConnectionTest(
@@ -21,6 +23,12 @@ export default class ConnectionTestFactory {
     }
     if (testName === "cipher") {
       return new CIPHER(connectionTestRequest);
+    }
+    if (testName === "wsdl") {
+      return new WSDL(connectionTestRequest);
+    }
+    if (testName === "connectivity") {
+      return new CONNECTIVITY(connectionTestRequest);
     }
     return null as unknown as Testable;
   }

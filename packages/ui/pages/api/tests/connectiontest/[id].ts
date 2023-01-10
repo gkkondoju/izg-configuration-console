@@ -17,7 +17,7 @@ export default async function handler(
     query: { id },
     method,
   } = request;
-  const testSuite: string[] = ["dns", "tcp", "tls", "cipher"];
+  const testSuite: string[] = ["dns", "tcp", "tls", "cipher", "wsdl","connectivity"];
   const testResults: ConnectionTestResult[] = [];
 
   const destination = await lookupDestinationURL(id);
@@ -117,18 +117,10 @@ const queryDestination = async (
   destId: String | string[],
   apolloClient: any
 ) => {
-  console.log("DEBUG ---> running query for " + destId);
-  //try {
   return await apolloClient.query({
     query: FETCH_DESTINATION,
     variables: { destId: destId },
   });
-  // } catch (e) {
-  //   console.log(
-  //     `Error ---> could not get record for ${destId} using FETCH_DESTINATION query: ${e}`
-  //   );
-  // }
-  //return null;
 };
 
 const convertUrlStringToUrlObject = (urlString: string) => {
