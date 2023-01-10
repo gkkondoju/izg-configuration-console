@@ -61,7 +61,7 @@ export default class WSDL extends ConnectionTest {
     return new Promise((resolve, reject) => {
       const req = https.request(options, (res) => {
         let data = "";
-        var targetNameSpace="";
+        var targetNameSpace = "";
         if (res.statusCode == 200) {
           res.on("data", (chunk) => {
             data = data + chunk.toString();
@@ -81,11 +81,16 @@ export default class WSDL extends ConnectionTest {
                   },
                 ]);
               } else {
-                targetNameSpace = result["definitions"]["$"]["targetNamespace"].toString();
-                if(targetNameSpace === 'urn:cdc:iisb:2014' ||targetNameSpace === 'urn:cdc:iisb:2011'){
+                targetNameSpace =
+                  result["definitions"]["$"]["targetNamespace"].toString();
+                if (
+                  targetNameSpace === "urn:cdc:iisb:2014" ||
+                  targetNameSpace === "urn:cdc:iisb:2011"
+                ) {
                   resolve([
                     {
                       ...wsdlConnectionTestResult,
+                      detail: { targetNameSpace: targetNameSpace },
                       status: TestStatus.PASS,
                     },
                   ]);
@@ -93,8 +98,11 @@ export default class WSDL extends ConnectionTest {
                   resolve([
                     {
                       ...wsdlConnectionTestResult,
-                      detail: 'Re4ceived targetnamespace as ' + targetNameSpace,
-                      message: TestResponseMessages.WSDL_NOT_SUPPORTED(targetNameSpace),
+                      detail: { targetNameSpace: targetNameSpace },
+                      message:
+                        TestResponseMessages.WSDL_NOT_SUPPORTED(
+                          targetNameSpace
+                        ),
                       status: TestStatus.FAIL,
                     },
                   ]);
@@ -102,16 +110,15 @@ export default class WSDL extends ConnectionTest {
               }
             });
           });
-        }
-        else {
+        } else {
           resolve([
             {
               ...wsdlConnectionTestResult,
-              message:TestResponseMessages.WSDL_NOT_ACCESSED,
+              message: TestResponseMessages.WSDL_NOT_ACCESSED,
               status: TestStatus.FAIL,
             },
           ]);
-        }    
+        }
       });
 
       req.on("error", (error) => {

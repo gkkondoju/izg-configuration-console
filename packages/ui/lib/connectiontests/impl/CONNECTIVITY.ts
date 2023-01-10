@@ -24,25 +24,24 @@ export default class CONNECTIVITY extends ConnectionTest {
       status: this.status,
     };
 
-    const requestBody =
-      '<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope">' +
-      "<soap:Header>" +
-      '<Action xmlns="http://www.w3.org/2005/08/addressing">urn:cdc:iisb:2014:IISPortType:ConnectivityTestRequest</Action>' +
-      '<MessageID xmlns="http://www.w3.org/2005/08/addressing">{{testMessageId}}</MessageID>' +
-      '<To xmlns="http://www.w3.org/2005/08/addressing">http://www.w3.org/2005/08/addressing/anonymous</To>' +
-      "</soap:Header>" +
-      "<soap:Body>" +
-      '<ConnectivityTestRequest xmlns="urn:cdc:iisb:2014" xmlns:ns2="urn:cdc:iisb:hub:2014" xmlns:ns3="urn:cdc:iisb:2011">' +
-      "<EchoBack>Wishing " +
-      this.connectionTestRequest.hostname +
-      ":" +
-      this.connectionTestRequest.port +
-      " an Audacious Hello at" +
-      new Date() +
-      "!</EchoBack>" +
-      "</ConnectivityTestRequest>" +
-      "</soap:Body>" +
-      "</soap:Envelope>";
+    const requestBody = `<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope">
+      <soap:Header>
+      <Action xmlns="http://www.w3.org/2005/08/addressing">urn:cdc:iisb:2014:IISPortType:ConnectivityTestRequest</Action>
+      <MessageID xmlns="http://www.w3.org/2005/08/addressing">{{testMessageId}}</MessageID>
+      <To xmlns="http://www.w3.org/2005/08/addressing">http://www.w3.org/2005/08/addressing/anonymous</To>
+      </soap:Header>
+      <soap:Body>
+      <ConnectivityTestRequest xmlns="urn:cdc:iisb:2014" xmlns:ns2="urn:cdc:iisb:hub:2014" xmlns:ns3="urn:cdc:iisb:2011">
+      <EchoBack>Wishing 
+      ${this.connectionTestRequest.hostname} 
+      :
+      ${this.connectionTestRequest.port}
+       an Audacious Hello at
+      ${new Date()} 
+      !</EchoBack>
+      </ConnectivityTestRequest>
+      </soap:Body>
+      </soap:Envelope>`;
 
     const IZG_ENDPOINT_CERT_DIR_PATH =
       process.env.IZG_ENDPOINT_CERT_DIR_PATH || "unknown";
@@ -124,28 +123,34 @@ export default class CONNECTIVITY extends ConnectionTest {
               resolve([
                 {
                   ...connectivityTestResult,
-                  detail: null,
+                  detail: { response: responseEchoback },
                   message: null,
                   status: TestStatus.PASS,
                 },
               ]);
-            }
-            else if (responseEchoback.includes(requestEchoback)){
+            } else if (responseEchoback.includes(requestEchoback)) {
               resolve([
                 {
                   ...connectivityTestResult,
-                  detail: null,
-                  message: TestResponseMessages.CONNECTIVITY_WARNING(requestEchoback,responseEchoback),
+                  detail: { response: responseEchoback },
+                  message: TestResponseMessages.CONNECTIVITY_WARNING(
+                    requestEchoback,
+                    responseEchoback
+                  ),
                   status: TestStatus.WARNING,
                 },
               ]);
             }
-          }
-          else if (requestEchoback !== responseEchoback || !responseEchoback.includes(requestEchoback)){
+          } else if (
+            requestEchoback !== responseEchoback ||
+            !responseEchoback.includes(requestEchoback)
+          ) {
             resolve([
               {
                 ...connectivityTestResult,
-                message:TestResponseMessages.CONNECTIVITY_ECHOBACK_NOT_EXPECTED,
+                detail: { response: responseEchoback },
+                message:
+                  TestResponseMessages.CONNECTIVITY_ECHOBACK_NOT_EXPECTED,
                 status: TestStatus.FAIL,
               },
             ]);
