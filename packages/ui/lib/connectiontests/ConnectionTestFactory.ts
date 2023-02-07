@@ -6,6 +6,7 @@ import TLS from "./impl/TLS";
 import CIPHER from "./impl/CIPHER";
 import WSDL from "./impl/WSDL";
 import CONNECTIVITY from "./impl/CONNECTIVITY";
+import QBP from "./impl/QBP";
 
 export default class ConnectionTestFactory {
   static getConnectionTest(
@@ -29,6 +30,9 @@ export default class ConnectionTestFactory {
     }
     if (testName === "connectivity") {
       return new CONNECTIVITY(connectionTestRequest);
+    }
+    if (testName === "qbp") {
+      return new QBP(connectionTestRequest);
     }
     return null as unknown as Testable;
   }

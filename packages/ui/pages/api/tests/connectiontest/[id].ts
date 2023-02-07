@@ -17,7 +17,7 @@ export default async function handler(
     query: { id },
     method,
   } = request;
-  const testSuite: string[] = ["dns", "tcp", "tls", "cipher", "wsdl","connectivity"];
+  const testSuite: string[] = ["dns", "tcp", "tls", "cipher", "wsdl","connectivity","qbp"];
   const testResults: ConnectionTestResult[] = [];
 
   const destination = await lookupDestinationURL(id);
