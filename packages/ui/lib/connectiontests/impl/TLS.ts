@@ -93,7 +93,7 @@ export default class TLS extends ConnectionTest {
   };
 
   isGoodTLSVersion(connectedProtocol: string): boolean {
-    if (connectedProtocol === (TLS.MIN_TLS_VERSION || TLS.MAX_TLS_VERSION)) {
+    if (connectedProtocol === TLS.MIN_TLS_VERSION || connectedProtocol === TLS.MAX_TLS_VERSION) {
       return true;
     }
     return false;
