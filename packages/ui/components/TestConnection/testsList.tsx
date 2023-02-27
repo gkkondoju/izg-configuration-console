@@ -28,16 +28,16 @@ interface testListProps {
   testResults: any[];
   destination: string;
   destinationType: string;
+  jurisdictionUrl: string;
 }
 
 const testsList = ({
   testResults,
   destination,
   destinationType,
+  jurisdictionUrl,
 }: testListProps) => {
-  const handleBack = () => {
-    history.back();
-  };
+  const handleReload = () => window.location.reload();
   const componentRef = useRef(null);
   const passeddata = testResults.filter(
     (item) => item.status === "PASS"
@@ -130,12 +130,12 @@ const testsList = ({
         <Button
           color="primary"
           variant="outlined"
-          onClick={handleBack}
+          onClick={handleReload}
           sx={{
             borderRadius: "30px",
           }}
         >
-          BACK TO CONNECTIONS
+          RERUN TEST
         </Button>
         <ReactToPrint
           trigger={() => (
@@ -169,19 +169,20 @@ const testsList = ({
               fontSize="32px"
               id="test-connection"
             >
-              Running Test for {destination === "unknown" ? "N/A" : destination}{" "}
+              Connection testing for {destination === "unknown" ? "N/A" : destination}{" "}
               {destinationType}
             </Typography>
             <Typography align="center" variant="body1">
-              Some text stating that this is only testing the connection and
-              they cant edit any fields
+              Test results for the URL <strong>{jurisdictionUrl}</strong> are
+              displayed below. For any tests that fail, please make required
+              changes to the connection and then retry testing.
             </Typography>
           </Box>
           <Card
             sx={{ marginTop: 4, borderRadius: "0px 0px 16px 16px" }}
             id="test-connection-info"
           >
-            <CardHeader title="Test your connections" />
+            <CardHeader title="Test your connection" />
             <Divider />
             <CardContent>
               <Typography variant="body1">

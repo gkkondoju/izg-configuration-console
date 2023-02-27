@@ -25,28 +25,16 @@ export default class TLS extends ConnectionTest {
       status: this.status,
     };
 
-    const IZG_ENDPOINT_CERT_DIR_PATH =
-      process.env.IZG_ENDPOINT_CERT_DIR_PATH || "unknown";
-    const IZG_ENDPOINT_PASSCODE = process.env.IZG_ENDPOINT_PASSCODE || "";
-
-    const crtPath = fs
-      .readdirSync(IZG_ENDPOINT_CERT_DIR_PATH)
-      .filter((fn) => fn.endsWith(".crt"))[0];
-
-    const keyPath = fs
-      .readdirSync(IZG_ENDPOINT_CERT_DIR_PATH)
-      .filter((fn) => fn.endsWith(".key"))[0];
-
     const httpsAgentOptions = {
       cert: fs.readFileSync(
-        path.resolve(IZG_ENDPOINT_CERT_DIR_PATH, crtPath),
+        path.resolve(this.connectionTestRequest.certPath),
         `utf-8`
       ),
       key: fs.readFileSync(
-        path.resolve(IZG_ENDPOINT_CERT_DIR_PATH, keyPath),
+        path.resolve(this.connectionTestRequest.keyPath),
         "utf-8"
       ),
-      passphrase: IZG_ENDPOINT_PASSCODE,
+      passphrase: this.connectionTestRequest.passphrase,
       rejectUnauthorized: false,
       keepAlive: true,
     };
@@ -93,7 +81,7 @@ export default class TLS extends ConnectionTest {
   };
 
   isGoodTLSVersion(connectedProtocol: string): boolean {
-    if (connectedProtocol === (TLS.MIN_TLS_VERSION || TLS.MAX_TLS_VERSION)) {
+    if (connectedProtocol === TLS.MIN_TLS_VERSION || connectedProtocol === TLS.MAX_TLS_VERSION) {
       return true;
     }
     return false;
