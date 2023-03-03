@@ -19,6 +19,8 @@ export const typeDefs = [
       password: String
       signed_mou: Boolean
       jurisdiction: Jurisdiction
+      username: String
+      password: String
       status: EndpointStatus
       facility_id: String,
       MSH3: String,
