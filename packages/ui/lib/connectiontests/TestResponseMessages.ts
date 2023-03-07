@@ -20,6 +20,14 @@ export class TestResponseMessages {
     "The WSDL {WSDL-location} for this endpoint could not be accessed.";
   public static readonly CONNECTIVITY_ECHOBACK_NOT_EXPECTED =
     "The echoback response did not contain the expected content.";
-  public static readonly CONNECTIVITY_WARNING = (testEchoback: string, responseEchoback: string) =>
-    `IZ Gateway expected ${testEchoback} but got back ${testEchoback}.`;
+  public static readonly CONNECTIVITY_WARNING = (
+    testEchoback: string,
+    responseEchoback: string
+  ) => `IZ Gateway expected ${testEchoback} but got back ${testEchoback}.`;
+  public static readonly SERVER_ERROR = `We cannot connect right now. Please try again later`;
+  public static readonly HL7MESSAGE_NOT_PRESENT = `Response message did not contain any HL7 message`;
+  public static readonly HL7MESSAGE_CANNOT_PARSE = `There is an error parsing HL7 message from response message`;
+  public static readonly ERROR_IN_HL7MESSAGE = `HL7 message is reported back as an error`;
+  public static readonly MESSAGE_VALIDATION_FAIL = `The response indicated a failure in HL7 Message validations`;
+  public static readonly FAULT_IN_RESPONSE = `Soap fault has been reported in response`;
 }

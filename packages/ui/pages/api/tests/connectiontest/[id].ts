@@ -24,6 +24,7 @@ export default async function handler(
     "cipher",
     "wsdl",
     "connectivity",
+    "qbp"
   ];
   const testResults: ConnectionTestResult[] = [];
 
@@ -81,6 +82,7 @@ export default async function handler(
     port: +destIdURL.port || DEFAULT_PORT,
     hostname: destIdURL.hostname,
     path: destIdURL.pathname,
+    id: id as string,
     order: 0,
     certPath: IZG_ENDPOINT_CRT_PATH,
     keyPath: IZG_ENDPOINT_KEY_PATH,

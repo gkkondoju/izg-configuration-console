@@ -20,6 +20,13 @@ model destinations {
   dest_uri     String    @db.VarChar(1024)
   username     String?   @db.VarChar(50)
   password     String?   @db.VarChar(50)
+  facility_id  String?   @db.VarChar(50)
+  MSH3         String?   @db.VarChar(50)
+  MSH4         String?   @db.VarChar(50)
+  MSH5         String?   @db.VarChar(50)
+  MSH6         String?   @db.VarChar(50)
+  MSH22        String?   @db.VarChar(50)
+  RXA11        String?   @db.VarChar(50)
   dest_version String?   @db.VarChar(50)
   signed_mou   Boolean   @default(false)
   pass_expiry  DateTime? @db.Date
@@ -29,11 +36,10 @@ model destinations {
 }
 
 model messageheaderinfo {
-  dest_id String  @id @db.VarChar(128)
-  msh_03  String? @db.VarChar(128)
-  msh_04  String? @db.VarChar(128)
-  msh_05  String? @db.VarChar(128)
-  msh_06  String? @db.VarChar(128)
+  msh        String  @id @db.VarChar(128)
+  dest_id    String? @db.VarChar(128)
+  iis        String? @db.VarChar(128)
+  sourceType String? @db.VarChar(128)
 }
 
 model destination_type {
