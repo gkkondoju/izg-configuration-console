@@ -9,9 +9,17 @@ export const FETCH_DESTINATION = gql`
       }
       dest_uri
       dest_version
+      username
+      password
       jurisdiction {
         description
       }
+      facility_id
+      MSH3
+      MSH4
+      MSH5
+      MSH6
+      MSH22
     }
   }
 `;

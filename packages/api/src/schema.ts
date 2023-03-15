@@ -15,9 +15,17 @@ export const typeDefs = [
       dest_uri: String
       dest_type: DestinationType!
       dest_version: String
+      username: String
+      password: String
       signed_mou: Boolean
       jurisdiction: Jurisdiction
       status: EndpointStatus
+      facility_id: String,
+      MSH3: String,
+      MSH4: String,
+      MSH5: String,
+      MSH6: String,
+      MSH22: String
     }
 
     type DestinationType {
