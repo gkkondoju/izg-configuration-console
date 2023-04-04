@@ -7704,7 +7704,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"xml2js@npm:^0.4.0":
+"xml2js@npm:^0.4.0, xml2js@npm:^0.4.23":
   version: 0.4.23
   resolution: "xml2js@npm:0.4.23"
   dependencies:

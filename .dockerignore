@@ -37,6 +37,7 @@ tsconfig.tsbuildinfo
 # Docker related
 .dockerignore
 Dockerfile
+Dockerfile.*
 docker-compose.*.yml
 docker-compose.yml
 docker
