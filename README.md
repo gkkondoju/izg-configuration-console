@@ -67,7 +67,10 @@ This will start the config console api and ui services. To open the application,
 
 `http://localhost:3000`
 
-Running in development mode uses the concurrently package to start both the /api graphql server and the /ui nextjs server in development mode
+Running in development mode uses the concurrently package to start both the api graphql server and the ui nextjs server in development mode. Use the following credentials to log into the applicaiton when prompted:
+
+Username: brian     
+Password: test
 
 ### **After setup**
 Now that the above steps are completed, the entire project can be started by running the following command at the root of the project
