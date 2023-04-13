@@ -1,16 +1,25 @@
 version: "3"
 services:
+  nginx:
+    build: ./nginx
+    depends_on:
+      - api
+      - ui
+    ports:
+      - 80:80
   api:
     container_name: api
     build:
-      context: packages/api
-      dockerfile: Dockerfile
+      context: ./
+      dockerfile: ./docker/Dockerfile.api
     environment:
       - IZG_ENDPOINT_CERT_DIR_PATH=/certs
   ui:
     container_name: ui
     build:
-      context: packages/ui
-      dockerfile: Dockerfile
+      context: ./
+      dockerfile: ./docker/Dockerfile.ui
+    environment:
+      - IZG_ENDPOINT_CERT_DIR_PATH=/certs
 volumes:
   certs:

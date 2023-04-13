@@ -11,7 +11,12 @@
     "start-ui": "yarn workspace @monorepo/ui start",
     "dev": "concurrently \"yarn api-dev\" \"yarn ui-dev\"",
     "build": "concurrently \"yarn build-api\" \"yarn build-ui\"",
-    "start": "concurrently \"yarn start-api\" \"yarn start-ui\""
+    "start": "concurrently \"yarn start-api\" \"yarn start-ui\"",
+    "docker:up": "docker-compose up -d",
+    "docker-dev:up": "docker-compose -f ./docker-compose.dev.yml up -d",
+    "docker:down": "docker-compose down --remove-orphans",
+    "docker-development:up": "yarn docker-dev:up && yarn dev",
+    "docker-development:down": "yarn docker:down"
   },
   "workspaces": [
     "packages/*"
@@ -30,6 +35,7 @@
     "cypress": "^12.9.0",
     "moment": "^2.29.4",
     "uuid": "^9.0.0",
-    "xml2js": "^0.4.23"
+    "xml2js": "^0.4.23",
+    "next-auth": "^4.18.6"
   }
 }

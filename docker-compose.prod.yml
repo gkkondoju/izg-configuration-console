@@ -1,8 +1,10 @@
 version: "3"
 services:
-  api:
+  nginx:
+    build: ./nginx
     ports:
-      - "4000:4000"
+      - 80:80
+  api:
     volumes:
       - <path to certs>:/certs
     environment:
@@ -11,8 +13,6 @@ services:
       - IZG_STATUS_ENDPOINT_URL=<status endpoint>
       - DATABASE_URL=<connection string>
   ui:
-    ports:
-      - "3000:3000"
     environment:
       - GRAPHQL_URL=http://localhost:4000/graphql
       - ENDPOINT_TEST_API_DOMAIN=http://localhost:3000
