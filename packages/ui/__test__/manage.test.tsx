@@ -1,10 +1,10 @@
 import React from 'react';
 import { render, screen, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import Manage from './index';
+import Manage from '../pages/manage/index';
 import { act } from 'react-dom/test-utils';
 import { MockedProvider } from '@apollo/react-testing';
-import { FETCH_ALL_DESTINATIONS } from '../../lib/queries/fetch';
+import { FETCH_ALL_DESTINATIONS } from '../lib/queries/fetch';
 
 const mocks = [
   {
