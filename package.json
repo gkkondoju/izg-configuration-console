@@ -5,7 +5,7 @@
   "scripts": {
     "api-dev": "yarn workspace @monorepo/api dev",
     "ui-dev": "yarn workspace @monorepo/ui dev",
-    "build-api": "yarn workspace @monorepo/api run build",
+    "build-api": "yarn workspace @monorepo/api run -T build",
     "build-ui": "yarn workspace @monorepo/ui run build",
     "start-api": "yarn workspace @monorepo/api start",
     "start-ui": "yarn workspace @monorepo/ui start",
