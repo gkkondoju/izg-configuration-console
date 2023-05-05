@@ -16,7 +16,8 @@
     "docker-dev:up": "docker-compose -f ./docker-compose.dev.yml up -d",
     "docker:down": "docker-compose down --remove-orphans",
     "docker-development:up": "yarn docker-dev:up && yarn dev",
-    "docker-development:down": "yarn docker:down"
+    "docker-development:down": "yarn docker:down",
+    "prepare": "husky install"
   },
   "workspaces": [
     "packages/*"
@@ -39,6 +40,9 @@
     "xml2js": "^0.4.23"
   },
   "devDependencies": {
+    "@commitlint/cli": "^17.6.3",
+    "@commitlint/config-conventional": "^17.6.3",
+    "husky": "^8.0.3",
     "typescript": "^5.0.4"
   }
 }
