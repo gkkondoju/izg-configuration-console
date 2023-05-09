@@ -35,7 +35,7 @@ const auditMiddleware = async (params, next) => {
 
     const auditTrailData = {
       tableName: params.model,
-      userName: "Brian Harris",   ////update this when we have UI for editing
+      userName: "Brian Harris", ////update this when we have UI for editing
       changeType: audit_history_changeType.Update,
       oldValues: record || { error: "Undefined" },
       newValues: params.args.data,
