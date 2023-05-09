@@ -1,8 +1,5 @@
 import { PrismaClient } from "@prisma/client";
 import { audit_history_changeType } from "@prisma/client";
-import { Session } from "next-auth";
-import { getSession } from "next-auth/react";
-import fetch from "node-fetch";
 
 const showSql =
   process.env.SHOW_SQL_IN_CONSOLE?.toLocaleLowerCase() === "true" || false;
@@ -12,17 +9,6 @@ const prisma = new PrismaClient({
 });
 
 const auditMiddleware = async (params, next) => {
-  // const session = await getSession();
-  // const userName = session?.user?.name ?? 'anonymous';
-
-  // // Ignore audit log for authentication actions
-  // if (params.action !== ) {
-  //   return next(params);
-  // }
-  const response = await fetch("http://localhost:3000/api/auth/session");
-  const statusResponse = await response.json();
-  console.log(response.status);
-
   if (
     !["create", "update", "delete"].includes(params.action) ||
     params.model === "audit_history"
@@ -49,7 +35,7 @@ const auditMiddleware = async (params, next) => {
 
     const auditTrailData = {
       tableName: params.model,
-      userName: "userName",
+      userName: "Brian Harris",   ////update this when we have UI for editing
       changeType: audit_history_changeType.Update,
       oldValues: record || { error: "Undefined" },
       newValues: params.args.data,

@@ -82,6 +82,7 @@ export const typeDefs = [
       destinationById(dest_id: String!): Destination!
       endpointStatusHistoryByDestId(dest_id: String!): [EndpointStatus]!
       statusHistoryInterval: StatusHistoryInterval!
+      auditBydestIdByUser(dest_id: String!, table: String!, user: String! ): [AuditHistory]!
     }
 
     type Mutation {
@@ -109,6 +110,22 @@ export const resolvers = {
     ) => {
       return context.prisma.destinations.findUnique({
         where: { dest_id: _args.dest_id },
+      });
+    },
+    auditBydestIdByUser: (
+      _parent: any,
+      _args: { dest_id: string, table: string, user: string },
+      context: Context
+    ) => {
+      return context.prisma.audit_history.findMany({
+        where: { tableName: _args.table,
+        userName: _args.user,
+        oldValues : {
+          path: '$.dest_id',
+          equals: _args.dest_id,
+        }
+        },
+        orderBy: { createdAt: "desc" },
       });
     },
     endpointStatusHistoryByDestId: (
