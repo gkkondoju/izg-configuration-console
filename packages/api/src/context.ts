@@ -19,7 +19,7 @@ const auditMiddleware = async (params, next) => {
   if (params.action === "create") {
     const auditTrailData = {
       tableName: params.model,
-      userName: "userName",
+      userName: "userName", //update this when we have UI for editing
       changeType: audit_history_changeType.Insert,
       oldValues: {},
       newValues: params.args.data,
@@ -35,7 +35,7 @@ const auditMiddleware = async (params, next) => {
 
     const auditTrailData = {
       tableName: params.model,
-      userName: "Brian Harris", ////update this when we have UI for editing
+      userName: "Brian Harris", //update this when we have UI for editing
       changeType: audit_history_changeType.Update,
       oldValues: record || { error: "Undefined" },
       newValues: params.args.data,
@@ -49,7 +49,7 @@ const auditMiddleware = async (params, next) => {
     });
     const auditTrailData = {
       tableName: params.model,
-      userName: "userName",
+      userName: "userName", //update this when we have UI for editing
       changeType: audit_history_changeType.Delete,
       oldValues: record,
       newValues: params.args.data,
